@@ -4,7 +4,7 @@ function Logout() {
 
 window.onload = function() {checkToken()};
 async function checkToken() {
-    this.responsedata = await (await fetch('http://127.0.0.1:8000/users/me',
+    this.responsedata = await (await fetch('https://api-eindproject-arnevangheel.cloud.okteto.net/users/me',
         {
             method: 'GET',
             headers: {
