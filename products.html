@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script defer src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="dashboard/styles.css">
+    <script src="dashboard/verify.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="sidenav">
+    <a href="dashboard.html">Orders</a>
+    <a href="customers.html">Customers</a>
+    <a href="products.html">Products</a>
+    <a href="profile.html">Profile</a>
+    <a href="index.html" onclick="Logout()">Logout</a>
+</div>
+<div class="main">
+    <h3>View Products</h3>
+    <div x-data="{
+        products: [],
+        user: null,
+        async getData() {
+            this.products = await (await fetch('http://127.0.0.1:8000/products')).json();
+        }
+    }">
+        <button x-on:click="getData">Refresh</button>
+        <table x-init="getData">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Product Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <template x-for="product in products">
+                <tr>
+                    <td x-text="product.id"></td>
+                    <td x-text="product.product_name"></td>
+                </tr>
+            </template>
+            </tbody>
+        </table>
+        <h3>Create Product</h3>
+        <div x-data="{
+        responsedata: null,
+        productname: null,
+        async callmethod1() {
+            this.responsedata = await (await fetch('http://127.0.0.1:8000/products',
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                product_name: this.productname,
+                }
+            ),
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'Content-type': 'application/json',
+                'accept': 'application/json' ,
+            },
+        })).json();
+        getData();
+        },
+    }">
+            <label>Product Name:</label><input type="text" x-model="productname"><br>
+            <button x-on:click="callmethod1">Create Order</button>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

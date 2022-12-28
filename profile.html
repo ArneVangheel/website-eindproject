@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script defer src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="dashboard/styles.css">
+    <script src="dashboard/verify.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="sidenav">
+    <a href="dashboard.html">Orders</a>
+    <a href="customers.html">Customers</a>
+    <a href="products.html">Products</a>
+    <a href="profile.html">Profile</a>
+    <a href="index.html" onclick="Logout()">Logout</a>
+</div>
+<div class="main">
+    <h3>Profile Details</h3>
+    <div x-data="{
+        user: [],
+        async getData() {
+             this.user = await (await fetch('http://127.0.0.1:8000/users/me',
+        {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'accept': 'application/json',
+            },
+        })).json();
+        }
+    }">
+        <div x-init="getData">
+            Email: <strong x-text="user.email"></strong><br>
+            Name: <strong x-text="user.name"></strong><br>
+            ID: <strong x-text="user.id"></strong><br>
+            <table>
+                <thead>
+                <tr>
+                    <th>OrderID</th>
+                    <th>ProductID</th>
+                    <th>Order Date</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <template x-for="product in user.orders">
+                    <tr>
+                        <td x-text="product.id"></td>
+                        <td x-text="product.product_id"></td>
+                        <td x-text="product.orderedAt"></td>
+                        <td x-text="product.status"></td>
+                    </tr>
+                </template>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

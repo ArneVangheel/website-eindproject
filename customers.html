@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script defer src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="dashboard/styles.css">
+    <script src="dashboard/verify.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="sidenav">
+    <a href="dashboard.html">Orders</a>
+    <a href="customers.html">Customers</a>
+    <a href="products.html">Products</a>
+    <a href="profile.html">Profile</a>
+    <a href="index.html" onclick="Logout()">Logout</a>
+</div>
+<div class="main">
+    <h4>View All Customers</h4>
+    <div x-data="{
+        customers: [],
+        async getData() {
+            this.customers = await (await fetch('http://127.0.0.1:8000/customers?skip=0&limit=100',
+        {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'accept': 'application/json' ,
+            },
+        })).json();
+        }
+    }">
+        <button x-on:click="getData">Refresh</button>
+        <table x-init="getData">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+            </thead>
+            <tbody>
+            <template x-for="customer in customers">
+                <tr>
+                    <td x-text="customer.id"></td>
+                    <td x-text="customer.name"></td>
+                    <td x-text="customer.email"></td>
+                </tr>
+            </template>
+            </tbody>
+        </table>
+        <h4>Get customer by ID</h4>
+        <div x-data="{
+        responsedata: null,
+        id: null,
+        async callmethod1() {
+            this.responsedata = await (await fetch('http://127.0.0.1:8000/customers/' + this.id,
+            {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                },
+            })).json();
+        },
+    }">
+            <label>ID:</label><input type="text" x-model="id"><br>
+            <button x-on:click="callmethod1">Search Customer</button>
+            <br><br>
+            <p>Email: <strong x-text="responsedata.email"></strong></p>
+            <p>Name: <strong x-text="responsedata.name"></strong></p>
+            <p>id: <strong x-text="responsedata.id"></strong></p>
+            <table>
+                <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>OrderedAt</th>
+                    <th>Status</th>
+                    <th>Product ID</th>
+                </tr>
+                </thead>
+                <tbody>
+                <template x-for="order in responsedata.orders">
+                    <tr>
+                        <td x-text="order.id"></td>
+                        <td x-text="order.orderedAt"></td>
+                        <td x-text="order.status"></td>
+                        <td x-text="order.product_id"></td>
+                    </tr>
+                </template>
+                </tbody>
+            </table>
+        </div>
+</div>
+</body>
+</html>
