@@ -5,7 +5,7 @@ async function Register(){
     let nameInput = document.getElementById('username-input').value;
     let passwordInput = document.getElementById('password-input').value;
     console.log(emailInput)
-    this.responsedata = await (await fetch('http://127.0.0.1:8000/register',
+    this.responsedata = await (await fetch('https://api-eindproject-arnevangheel.cloud.okteto.net/register',
         {
             method: 'POST',
             body: JSON.stringify({
