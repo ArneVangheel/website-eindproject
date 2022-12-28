@@ -20,7 +20,7 @@
     <div x-data="{
         customers: [],
         async getData() {
-            this.customers = await (await fetch('http://127.0.0.1:8000/customers?skip=0&limit=100',
+            this.customers = await (await fetch('https://api-eindproject-arnevangheel.cloud.okteto.net/customers?skip=0&limit=100',
         {
             method: 'GET',
             headers: {
@@ -54,7 +54,7 @@
         responsedata: null,
         id: null,
         async callmethod1() {
-            this.responsedata = await (await fetch('http://127.0.0.1:8000/customers/' + this.id,
+            this.responsedata = await (await fetch('https://api-eindproject-arnevangheel.cloud.okteto.net/customers/' + this.id,
             {
                 method: 'GET',
                 headers: {
