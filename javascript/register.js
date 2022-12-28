@@ -22,7 +22,7 @@ async function Register(){
     // SLAAG DE TOKEN OP IN DE WEBBROWSER
     if (!this.responsedata["detail"]){
         console.log("Login Succesfull")
-        window.location.href = "https://delightful-kashata-80ca8b.netlify.app/index.html";
+        window.location.href = "https://api-eindproject.netlify.app/index.html";
         alert("Account has been created, please login.")
     }
     else {
