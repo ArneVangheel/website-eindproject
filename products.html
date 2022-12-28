@@ -21,7 +21,7 @@
         products: [],
         user: null,
         async getData() {
-            this.products = await (await fetch('http://127.0.0.1:8000/products')).json();
+            this.products = await (await fetch('https://api-eindproject-arnevangheel.cloud.okteto.net/products')).json();
         }
     }">
         <button x-on:click="getData">Refresh</button>
@@ -46,7 +46,7 @@
         responsedata: null,
         productname: null,
         async callmethod1() {
-            this.responsedata = await (await fetch('http://127.0.0.1:8000/products',
+            this.responsedata = await (await fetch('https://api-eindproject-arnevangheel.cloud.okteto.net/products',
         {
             method: 'POST',
             body: JSON.stringify({
