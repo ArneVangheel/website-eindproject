@@ -14,7 +14,7 @@ async function checkToken() {
         })).json();
     console.log(this.responsedata);
     if (this.responsedata["email"] == null) {
-        window.location.href = "http://127.0.0.1:8080/index.html";
+        window.location.href = "https://delightful-kashata-80ca8b.netlify.app/index.html";
         console.log("User not authenticated")
     }
 
