@@ -7,7 +7,7 @@ async function getToken() {
     let password = document.getElementById('password-input').value;
     const paramsObj = {grant_type: "", username: email, password: password, scope: "", client_secret:""};
     const searchParams = new URLSearchParams(paramsObj);
-    this.responsedata = await (await fetch('http://127.0.0.1:8000/token',
+    this.responsedata = await (await fetch('https://api-eindproject-arnevangheel.cloud.okteto.net/token',
         {
             method: 'POST',
             body: searchParams,
