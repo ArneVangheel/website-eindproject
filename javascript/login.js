@@ -20,7 +20,7 @@ async function getToken() {
     if (this.responsedata["access_token"]){
         console.log("Login Succesfull")
         localStorage.setItem('token', this.responsedata["access_token"]);
-        location.href = 'http://127.0.0.1:8080/dashboard.html';
+        location.href = 'https://delightful-kashata-80ca8b.netlify.app/dashboard.html';
     }
     else {
         console.log("Login Failed")
