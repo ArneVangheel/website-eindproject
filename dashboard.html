@@ -22,7 +22,7 @@
         customerid: null,
         productid: null,
         async callmethod1() {
-            this.responsedata = await (await fetch('https://api-eindproject-arnevangheel.cloud.okteto.net/customers/' + this.customerid + '/orders',
+            this.responsedata = await (await fetch('https://api-eindproject-arnevangheel.cloud.okteto.net/customers/' + this.customerid + '/orders/',
             {
                 method: 'POST',
                 body: JSON.stringify({
